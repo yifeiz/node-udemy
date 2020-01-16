@@ -1,11 +1,15 @@
-const utils = require("./utils.js");
-const notes = require("./notes.js");
+const validator = require("validator");
+const chalk = require("chalk");
 
-const num = utils.add(2, 3);
+const getNotes = require("./notes.js");
 
-console.log(num);
-console.log(utils.name);
-console.log(utils);
-console.log(notes());
+const msg = getNotes();
+const myString = chalk.red.inverse.bold("Hello world!");
+
+console.log(myString);
+
+console.log(msg);
+console.log(validator.isEmail("11@11.com"));
+console.log(validator.isURL("googleca"));
 
 // Define and use a function in a new file
