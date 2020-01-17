@@ -1,15 +1,54 @@
-const validator = require("validator");
 const chalk = require("chalk");
-
+const yargs = require("yargs");
 const getNotes = require("./notes.js");
 
-const msg = getNotes();
-const myString = chalk.red.inverse.bold("Hello world!");
+// Create add command
+yargs.command({
+  command: "add",
+  describe: "Add a new note",
+  builder: {
+    title: {
+      describe: "Note title",
+      demandOption: true,
+      type: "string"
+    },
+    body: {
+      describe: "Note body",
+      demandOption: true,
+      type: "string"
+    }
+  },
+  handler: argv => {
+    console.log("Title: " + argv.title);
+    console.log("Body: " + argv.body);
+  }
+});
 
-console.log(myString);
+// Create remove command
+yargs.command({
+  command: "remove",
+  describe: "Remove a note",
+  handler: () => {
+    console.log("Removing the note");
+  }
+});
 
-console.log(msg);
-console.log(validator.isEmail("11@11.com"));
-console.log(validator.isURL("googleca"));
+// Create list command
+yargs.command({
+  command: "list",
+  describe: "List all notes",
+  handler: () => {
+    console.log("Listing notes: ");
+  }
+});
 
-// Define and use a function in a new file
+// Create read command
+yargs.command({
+  command: "read",
+  describe: "Read all notes",
+  handler: () => {
+    console.log("Reading a note");
+  }
+});
+
+yargs.parse();
