@@ -1,4 +1,16 @@
 const fs = require("fs");
+const chalk = require("chalk");
+
+const loadNotes = () => {
+  try {
+    const dataBuffer = fs.readFileSync("notes.json");
+    const dataJSON = dataBuffer.toString();
+    return JSON.parse(dataJSON);
+  } catch (e) {
+    console.log("No data");
+    return [];
+  }
+};
 
 const getNotes = () => {
   return "Your notes ...";
@@ -15,10 +27,25 @@ const addNote = (title, body) => {
       body: body
     });
     saveNotes(notes);
-    console.log("New note added!");
+    console.log(chalk.green.inverse("New note added!"));
   } else {
-    console.log("Duplicate note exists!!");
+    console.log(chalk.red.inverse("Duplicate note exists!!"));
   }
+};
+
+const removeNote = title => {
+  const notes = loadNotes();
+  const remainingNotes = notes.filter(note => {
+    return !(note.title === title);
+  });
+  let msg;
+  if (remainingNotes.length === notes.length) {
+    msg = chalk.red.inverse("Error! No note of that file name");
+  } else {
+    msg = chalk.green.inverse("'" + title + "'" + " has been removed.");
+    saveNotes(remainingNotes);
+  }
+  console.log(msg);
 };
 
 const saveNotes = notes => {
@@ -26,18 +53,8 @@ const saveNotes = notes => {
   fs.writeFileSync("notes.json", dataJSON);
 };
 
-const loadNotes = () => {
-  try {
-    const dataBuffer = fs.readFileSync("notes.json");
-    const dataJSON = dataBuffer.toString();
-    return JSON.parse(dataJSON);
-  } catch (e) {
-    console.log("No data");
-    return [];
-  }
-};
-
 module.exports = {
   getNotes: getNotes,
-  addNote: addNote
+  addNote: addNote,
+  removeNote: removeNote
 };
