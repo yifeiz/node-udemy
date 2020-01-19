@@ -22,8 +22,9 @@ const listNotes = () => {
 
 const addNote = (title, body) => {
   const notes = loadNotes();
-  const duplicateNotes = notes.filter(note => note.title === title);
-  if (duplicateNotes.length === 0) {
+  const duplicateNote = notes.find(note => note.title === title);
+
+  if (!duplicateNote) {
     notes.push({
       title: title,
       body: body
@@ -48,6 +49,17 @@ const removeNote = title => {
   console.log(msg);
 };
 
+const readNote = title => {
+  const notes = loadNotes();
+  const noteToRead = notes.find(note => note.title === title);
+  if (!noteToRead) {
+    console.log(chalk.red.inverse("Error! No note of that file name"));
+  } else {
+    console.log(chalk.inverse(title));
+    console.log(noteToRead.body);
+  }
+};
+
 const saveNotes = notes => {
   const dataJSON = JSON.stringify(notes);
   fs.writeFileSync("notes.json", dataJSON);
@@ -59,5 +71,6 @@ module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
-  listNotes: listNotes
+  listNotes: listNotes,
+  readNote: readNote
 };
