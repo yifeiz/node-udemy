@@ -1,3 +1,6 @@
 [submodule "weather-app"]
 	path = weather-app
 	url = git@github.com:yifei7zhang/weather-app.git
+[submodule "task-manager"]
+	path = task-manager
+	url = git@github.com:yifei7zhang/task-manager.git
