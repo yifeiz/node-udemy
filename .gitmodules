@@ -4,3 +4,9 @@
 [submodule "task-manager"]
 	path = task-manager
 	url = git@github.com:yifei7zhang/task-manager.git
+[submodule "socket-chat-react"]
+	path = socket-chat-react
+	url = git@github.com:yifei7zhang/socket-chat-react.git
+[submodule "socket-chat"]
+	path = socket-chat
+	url = git@github.com:yifei7zhang/socket-chat.git
